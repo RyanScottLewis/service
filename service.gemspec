@@ -2,14 +2,14 @@
 
 Gem::Specification.new do |s|
   s.name = "service"
-  s.version = "0.0.1"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ryan Scott Lewis"]
   s.date = "2012-12-13"
   s.description = "Service encapsulates an object which executes a bit of code in a loop that can be started or stopped and query whether it is running or not."
   s.email = "ryan@rynet.us"
-  s.files = ["Gemfile", "LICENSE", "README.md", "Rakefile", "VERSION", "lib/service.rb", "service.gemspec"]
+  s.files = ["Gemfile", "Gemfile.lock", "LICENSE", "README.md", "Rakefile", "VERSION", "lib/service.rb", "service.gemspec"]
   s.homepage = "http://github.com/RyanScottLewis/service"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
