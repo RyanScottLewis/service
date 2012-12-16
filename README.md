@@ -46,6 +46,12 @@ end
 
 ### Running
 
+Service gives simply allows you to run your code that is within the `execute` method in four different ways: 
+once (`execute`), once in a new Thread (`execute!`), in a loop (`start`/`run`), or in a loop within a
+new Thread (`start!`/`run!`)
+
+***
+
 Use the `start`/`run` instance method to call the `execute` instance method in a loop.
 
 ```ruby

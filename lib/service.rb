@@ -35,6 +35,13 @@ class Service
         raise NotImplementedError
       end
       
+      # Call the {#execute} method within a new Thread.
+      # 
+      # @return [Thread]
+      def execute!
+        Thread.new { execute }
+      end
+      
       # Stop the run loop.
       def stop
         @_service_state = :stopped
