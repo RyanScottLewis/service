@@ -6,79 +6,69 @@ class Service
 
   # The instance methods to be mixed into a Service.
   module Base
-    
-    # The instance methods to be mixed into modules which include/extend Service::Base.
-    module InstanceMethods
-      
-      # Query if the service is currently stopped.
-      # 
-      # @returns [true, false]
-      def stopped?
-        @_service_state == :stopped
-      end
-      
-      # Query if the service is currently started.
-      # 
-      # @returns [true, false]
-      def started?
-        @_service_state == :started
-      end
-      alias_method :running?, :started?
-      
-      # The code that will be executed within the run loop.
-      # @abstract Subclass and override {#run} to implement a custom Service.
-      def execute
-        raise NotImplementedError
-      end
-      
-      # Call the {#execute} method within a new Thread.
-      # 
-      # @return [Thread]
-      def execute!
-        Thread.new { execute }
-      end
-      
-      # Stop the run loop.
-      def stop
-        @_service_state = :stopped
-      end
-      
-      # Start the run loop.
-      def start
-        @_service_state = :started
-        loop do
-          break if stopped?
-          execute
-        end
-      end
-      alias_method :run, :start
-      
-      # Start the run loop in a new Thread.
-      # 
-      # @return [Thread]
-      def start!
-        Thread.new { start }
-      end
-      alias_method :run!, :start!
-      
+
+    # Query if the service is currently stopped.
+    #
+    # @return [Boolean]
+    def stopped?
+      @_service_state == :stopped
     end
-    
-    class << self
-      
-      # Include Service::Base::InstanceMethods when Service::Base is included.
-      def included(base)
-        base.send(:include, InstanceMethods)
-      end
-      
-      # Include Service::Base::InstanceMethods when Service::Base is extended.
-      def extended(base)
-        base.send(:include, InstanceMethods)
-      end
-      
+
+    # Query if the service is currently started.
+    #
+    # @return [Boolean]
+    def started?
+      @_service_state == :started
     end
-    
+    alias_method :running?, :started?
+
+    # The code that will be executed within the run loop.
+    #
+    # @abstract Override {#execute} to implement a custom Service.
+    def execute
+      raise NotImplementedError
+    end
+
+    # Call the {#execute} method within a new Thread.
+    #
+    # @return [Thread]
+    def execute!
+      Thread.new { execute }
+    end
+
+    # Stop the run loop.
+    #
+    # @return [Symbol] The current state (`:stopped`).
+    def stop
+      @_service_state = :stopped
+    end
+
+    # Start the run loop.
+    #
+    # @return [Symbol] The current state (`:started`).
+    def start
+      @_service_state = :started
+
+      loop do
+        break if stopped?
+
+        execute
+      end
+    end
+
+    alias_method :run, :start
+
+    # Start the run loop in a new Thread.
+    #
+    # @return [Thread]
+    def start!
+      Thread.new { start }
+    end
+
+    alias_method :run!, :start!
+
   end
-  
+
   include Base
-  
+
 end
