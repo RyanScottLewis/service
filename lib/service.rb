@@ -1,14 +1,10 @@
-require 'version'
-
-# Service encapsulates an object which executes a bit of code in a loop 
-# that can be started or stopped and query whether it is running or not.
-# 
-# Objects can subclass Service.
+# Service encapsulates an object which executes a bit of code in a loop that can be started or stopped and query whether
+# it is running or not.
 class Service
-  is_versioned
-  
-  # The Base module for Services.
-  # Objects can include or extend Service::Base.
+
+  VERSION = "2.0.0".freeze
+
+  # The instance methods to be mixed into a Service.
   module Base
     
     # The instance methods to be mixed into modules which include/extend Service::Base.
